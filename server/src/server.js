@@ -16,13 +16,14 @@ app.get('/',(req,res)=>{
 })
 
 
-//make our app ready for deployment 
-if(ENV.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname,"../client/dist")))
+// make our app ready for deployment
+if (ENV.NODE_ENV === "production") {
+   
+    app.use(express.static(path.join(__dirname, "../client/dist")));
 
-    app.get("/{*any}",(req , res)=>{
-        res.sendFile(path.join(__dirname,"../client/dist"))
-    })
+    app.use((req, res) => {
+        res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+    });
 }
 
 const port = ENV.PORT;
