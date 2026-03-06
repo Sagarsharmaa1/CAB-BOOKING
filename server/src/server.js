@@ -17,13 +17,30 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 const __dirname = path.resolve()
 
 
-app.use(cors({
-    origin:ENV.CLIENT_URL, credentials:true
-}))
+  ENV.CLIENT_URL,           // Set via CLIENT_URL env var in production
+     (ENV.NODE_ENV !== 'production' ? [
+    'http://localhost:5173',  // Vite default
+    'http://localhost:3000'   // Alternative dev port
+  ] : [])
+.filter((origin, index, self) => self.indexOf(origin) === index);
 
-app.get('/',(req,res)=>{
-    res.send("server is working")
-})
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`CORS rejected origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
+// app.get('/',(req,res)=>{
+//     res.send("server is working")
+// })
 
 
 // Routes
@@ -39,15 +56,6 @@ app.get('/', (req, res) => {
 
 const port = ENV.PORT;
 
-// make our app ready for deployment
-if (ENV.NODE_ENV === "production") {
-   
-    app.use(express.static(path.join(__dirname, "../client/dist")));
-
-    app.use((req, res) => {
-        res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-    });
-}
 
 // Connect DB and start server
 connectDB()
@@ -61,3 +69,10 @@ connectDB()
   });
 
 
+// make our app ready for deployment
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+  app.get('*', (req, res) => {  // Only catch GET requests
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  });
+}

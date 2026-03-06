@@ -1,0 +1,457 @@
+/* =========================================
+   TRENDY AURORA DARK — Cab Booking UI
+   Color Palette:
+   - Deep navy base: #0a0e1a
+   - Aurora teal:    #00f5d4
+   - Neon coral:     #ff6b6b
+   - Electric violet:#b14eff
+   - Soft amber:     #ffd166
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ---- CSS VARIABLES ---- */
+:root {
+  --bg-deep:       #0a0e1a;
+  --bg-mid:        #111827;
+  --bg-card:       rgba(17, 24, 39, 0.75);
+  --aurora-teal:   #00f5d4;
+  --neon-coral:    #ff6b6b;
+  --electric-violet: #b14eff;
+  --amber:         #ffd166;
+  --text-primary:  #f0f4ff;
+  --text-muted:    #8b96b0;
+  --border-glass:  rgba(255, 255, 255, 0.08);
+  --shadow-glow:   0 0 40px rgba(0, 245, 212, 0.12);
+  --radius-card:   22px;
+  --radius-input:  14px;
+  --transition:    all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- RESET & GLOBAL ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  transition: var(--transition);
+}
+
+body {
+  background-color: var(--bg-deep);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% -10%, rgba(177, 78, 255, 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 110%, rgba(0, 245, 212, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255, 107, 107, 0.07) 0%, transparent 70%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+/* ---- PAGE CONTAINER ---- */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* ---- PAGE TITLE ---- */
+.page-title {
+  text-align: center;
+  margin-bottom: 44px;
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--aurora-teal) 0%, var(--electric-violet) 60%, var(--neon-coral) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  position: relative;
+}
+
+.page-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--aurora-teal), var(--electric-violet));
+  border-radius: 2px;
+  margin: 10px auto 0;
+}
+
+/* ---- FORM CARD ---- */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: var(--text-primary);
+  padding: 38px 36px;
+  border-radius: var(--radius-card);
+  width: 440px;
+  border: 1px solid var(--border-glass);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    var(--shadow-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* top edge glow line */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--aurora-teal), var(--electric-violet), transparent);
+  opacity: 0.7;
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 28px;
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+/* ---- INPUTS ---- */
+.card input,
+.card select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 9px 0;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--border-glass);
+  font-size: 14.5px;
+  font-family: 'DM Sans', sans-serif;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition);
+}
+
+.card input::placeholder {
+  color: var(--text-muted);
+}
+
+.card select option {
+  background: var(--bg-mid);
+  color: var(--text-primary);
+}
+
+.card input:focus,
+.card select:focus {
+  border-color: var(--aurora-teal);
+  background: rgba(0, 245, 212, 0.06);
+  box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- BUTTONS ---- */
+.btn, .btn1 {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-input);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  border: none;
+  margin: 10px 0;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.btn {
+  background: linear-gradient(135deg, var(--aurora-teal) 0%, var(--electric-violet) 100%);
+  color: #0a0e1a;
+  font-weight: 700;
+  box-shadow: 0 6px 24px rgba(0, 245, 212, 0.3);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn:hover::after { opacity: 1; }
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0, 245, 212, 0.45);
+}
+
+.btn:active { transform: translateY(0); }
+
+.btn1 {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-muted);
+  border: 1px solid var(--border-glass);
+  box-shadow: none;
+}
+
+.btn1:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- CAB LIST CARDS ---- */
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+}
+
+.list-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-card);
+  padding: 26px;
+  width: 300px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.list-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--aurora-teal), var(--electric-violet));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.list-card:hover::before { opacity: 1; }
+
+.list-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 245, 212, 0.1);
+  border-color: rgba(0, 245, 212, 0.2);
+}
+
+.list-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--aurora-teal);
+  margin-bottom: 12px;
+  letter-spacing: -0.2px;
+}
+
+.list-card p {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+/* ---- CARD BUTTONS ---- */
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.card-buttons button {
+  flex: 1;
+  padding: 11px;
+  border-radius: 11px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+}
+
+.book-btn {
+  background: linear-gradient(135deg, var(--aurora-teal), var(--electric-violet));
+  color: #0a0e1a;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 245, 212, 0.25);
+}
+
+.book-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 245, 212, 0.4);
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  border: 1px solid var(--border-glass);
+}
+
+.back-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.11);
+  color: var(--text-primary);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- BOOKING CARDS ---- */
+.booking-list {
+  width: 70%;
+  margin: 40px auto 0;
+}
+
+.booking-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text-primary);
+  padding: 28px 30px;
+  margin-bottom: 24px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  line-height: 1.85;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.booking-card::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--aurora-teal), var(--electric-violet));
+  border-radius: 0 2px 2px 0;
+}
+
+.booking-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.4), 0 0 20px rgba(177, 78, 255, 0.1);
+  border-color: rgba(177, 78, 255, 0.2);
+}
+
+.booking-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.booking-card p strong,
+.booking-card p span {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.booking-card hr {
+  margin: 14px 0;
+  border: none;
+  border-top: 1px solid var(--border-glass);
+}
+
+/* ---- OPERATION BUTTONS ---- */
+.operation-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.operation-buttons button {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 11px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+/* View — Amber warm */
+.view-btn {
+  background: rgba(255, 209, 102, 0.12);
+  color: var(--amber);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+}
+.view-btn:hover {
+  background: rgba(255, 209, 102, 0.22);
+  box-shadow: 0 6px 20px rgba(255, 209, 102, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Edit — Teal */
+.edit-btn {
+  background: rgba(0, 245, 212, 0.1);
+  color: var(--aurora-teal);
+  border: 1px solid rgba(0, 245, 212, 0.22);
+}
+.edit-btn:hover {
+  background: rgba(0, 245, 212, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 245, 212, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Delete — Coral */
+.delete-btn {
+  background: rgba(255, 107, 107, 0.1);
+  color: var(--neon-coral);
+  border: 1px solid rgba(255, 107, 107, 0.22);
+}
+.delete-btn:hover {
+  background: rgba(255, 107, 107, 0.2);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--aurora-teal), var(--electric-violet));
+  border-radius: 3px;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .list-container,
+  .booking-list {
+    width: 95%;
+  }
+
+  .card {
+    width: 95%;
+    padding: 28px 22px;
+  }
+
+  .card-buttons,
+  .operation-buttons {
+    flex-direction: column;
+  }
+
+  .page-title {
+    font-size: 26px;
+  }
+}
