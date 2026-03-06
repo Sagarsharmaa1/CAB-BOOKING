@@ -1,0 +1,48 @@
+.booking-list{
+  padding:40px;
+  background:#f7f7f7;
+  min-height:100vh;
+}
+
+.page-title{
+  text-align:center;
+  margin-bottom:30px;
+  font-size:28px;
+}
+
+.booking-card{
+  background:white;
+  padding:20px;
+  margin:20px auto;
+  max-width:500px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.booking-card p{
+  margin:6px 0;
+  font-size:15px;
+}
+
+.booking-card button{
+  margin-top:12px;
+  padding:8px 15px;
+  border:none;
+  background:#ff4d4d;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.booking-card button:hover{
+  background:#e60000;
+}
+
+.status{
+  color:orange;
+}
+
+.empty{
+  text-align:center;
+  font-size:18px;
+}

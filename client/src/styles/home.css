@@ -1,0 +1,56 @@
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:#0f172a;
+  color:white;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.login-link{
+  text-decoration:none;
+  color:white;
+  font-weight:500;
+}
+
+.hero{
+  width:100%;
+  height:calc(100vh - 60px);
+  background:linear-gradient(135deg,#2563eb,#9333ea);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+}
+
+.hero h1{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  font-size:18px;
+  margin-bottom:25px;
+}
+
+.hero button{
+  padding:12px 25px;
+  border:none;
+  background:white;
+  color:black;
+  font-weight:bold;
+  border-radius:6px;
+  cursor:pointer;
+  margin-bottom:30px;
+}
+
+.hero img{
+  width:350px;
+}
