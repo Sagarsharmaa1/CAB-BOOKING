@@ -17,9 +17,25 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 const __dirname = path.resolve()
 
 
+
+const allowedOrigins = [
+  ENV.CLIENT_URL,           // https://cab-booking-bqls.onrender.com
+  'http://localhost:5173',  // Vite default
+  'http://localhost:3000'   // if you ever use another port
+];
+
 app.use(cors({
-    origin:ENV.CLIENT_URL, credentials:true
-}))
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 app.get('/',(req,res)=>{
     res.send("server is working")
@@ -39,15 +55,6 @@ app.get('/', (req, res) => {
 
 const port = ENV.PORT;
 
-// make our app ready for deployment
-if (ENV.NODE_ENV === "production") {
-   
-    app.use(express.static(path.join(__dirname, "../client/dist")));
-
-    app.use((req, res) => {
-        res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-    });
-}
 
 // Connect DB and start server
 connectDB()
@@ -61,3 +68,12 @@ connectDB()
   });
 
 
+// make our app ready for deployment
+if (ENV.NODE_ENV === "production") {
+   
+    app.use(express.static(path.join(__dirname, "../client/dist")));
+
+    app.use((req, res) => {
+        res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+    });
+}

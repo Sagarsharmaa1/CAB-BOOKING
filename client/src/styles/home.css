@@ -1,0 +1,109 @@
+/* src/styles/home.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0e1a;
+  font-family: 'DM Sans', sans-serif;
+  color: #f0f4ff;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f5d4 0%, #b14eff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-link {
+  color: #f0f4ff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #00f5d4, #b14eff);
+  color: #0a0e1a;
+  transition: 0.3s;
+}
+
+.login-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,245,212,0.3);
+}
+
+/* Hero section */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f5d4, #ff6b6b, #b14eff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #8b96b0;
+  margin-bottom: 2rem;
+}
+
+.hero button {
+  background: linear-gradient(135deg, #00f5d4, #b14eff);
+  color: #0a0e1a;
+  font-weight: 700;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 3rem;
+}
+
+.hero button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,245,212,0.4);
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar { padding: 1rem 1.5rem; }
+  .hero h1 { font-size: 2.5rem; }
+  .hero p { font-size: 1rem; }
+}
