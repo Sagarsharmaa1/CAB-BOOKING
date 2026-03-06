@@ -71,8 +71,10 @@ connectDB()
 
 // make our app ready for deployment
 if (ENV.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/dist")));
-  app.get('*', (req, res) => {  // Only catch GET requests
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-  });
+   
+    app.use(express.static(path.join(__dirname, "../client/dist")));
+
+    app.use((req, res) => {
+        res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+    });
 }
