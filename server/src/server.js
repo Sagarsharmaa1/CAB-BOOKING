@@ -21,9 +21,9 @@ app.use(cors({
     origin:ENV.CLIENT_URL, credentials:true
 }))
 
-app.get('/',(req,res)=>{
-    res.send("server is working")
-})
+// app.get('/',(req,res)=>{
+//     res.send("server is working")
+// })
 
 
 // Routes
@@ -32,10 +32,10 @@ app.use('/', bookingRoutes);
 app.use('/', userRoutes);
 app.use('/', carRoutes);
 
-// Test route
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
+// // Test route
+// app.get('/', (req, res) => {
+//   res.send('API is running...');
+// });
 
 const port = ENV.PORT;
 
