@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { FaFloppyDisk, FaImage } from 'react-icons/fa6';
 import { fetchCarById, updateCar } from '../services/api';
+import AppShell, { BackButton } from '../components/ui/AppShell';
 import '../styles/theme.css';
 
 function AdminEditCab() {
@@ -38,7 +40,9 @@ function AdminEditCab() {
     formData.append('cartype', cartype);
     formData.append('price', price);
     formData.append('carno', carno);
-    if (carImage) formData.append('image', carImage);
+    if (carImage) {
+      formData.append('image', carImage);
+    }
 
     try {
       await updateCar(id, formData);
@@ -50,19 +54,63 @@ function AdminEditCab() {
   };
 
   return (
-    <div className="page-container">
-      <div className="card">
-        <h2>Edit Cab</h2>
-        <input placeholder="Driver Name" value={drivername} onChange={(e) => setDrivername(e.target.value)} />
-        <input placeholder="Cab Model" value={carname} onChange={(e) => setCarname(e.target.value)} />
-        <input placeholder="Cab Type" value={cartype} onChange={(e) => setCartype(e.target.value)} />
-        <input placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
-        <input placeholder="Car Number" value={carno} onChange={(e) => setCarno(e.target.value)} />
-        <input type="file" accept="image/*" onChange={(e) => setCarImage(e.target.files[0])} />
-        <button className="btn" onClick={handleUpdate}>Update Cab</button>
-        <button className="btn" onClick={() => navigate(-1)}>Back</button>
+    <AppShell
+      title="Edit cab profile"
+      subtitle="Update cab details and save the changes to the fleet record."
+      badge="Fleet Admin"
+      compact
+      actions={
+        <>
+          <button type="button" className="btn" onClick={handleUpdate}>
+            <FaFloppyDisk />
+            <span>Save changes</span>
+          </button>
+          <BackButton onClick={() => navigate(-1)} />
+        </>
+      }
+    >
+      <div className="form-shell">
+        <div className="section-header">
+          <span className="eyebrow">Fleet Update</span>
+          <h2>Edit Cab</h2>
+          <p>Review the existing cab information and update the fields that need to change.</p>
+        </div>
+
+        <div className="form-grid form-grid--two">
+          <label className="field-card">
+            <span>Driver name</span>
+            <input placeholder="Driver Name" value={drivername} onChange={(e) => setDrivername(e.target.value)} />
+          </label>
+          <label className="field-card">
+            <span>Cab model</span>
+            <input placeholder="Cab Model" value={carname} onChange={(e) => setCarname(e.target.value)} />
+          </label>
+          <label className="field-card">
+            <span>Cab type</span>
+            <input placeholder="Cab Type" value={cartype} onChange={(e) => setCartype(e.target.value)} />
+          </label>
+          <label className="field-card">
+            <span>Price per km</span>
+            <input placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+          </label>
+          <label className="field-card">
+            <span>Car number</span>
+            <input placeholder="Car Number" value={carno} onChange={(e) => setCarno(e.target.value)} />
+          </label>
+          <label className="field-card">
+            <span><FaImage /> Replace image</span>
+            <input type="file" accept="image/*" onChange={(e) => setCarImage(e.target.files[0])} />
+          </label>
+        </div>
+
+        <div className="form-actions">
+          <button type="button" className="btn" onClick={handleUpdate}>
+            <span>Update cab</span>
+          </button>
+          <BackButton onClick={() => navigate(-1)} />
+        </div>
       </div>
-    </div>
+    </AppShell>
   );
 }
 

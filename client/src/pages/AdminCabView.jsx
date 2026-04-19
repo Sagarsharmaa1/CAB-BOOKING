@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCarRear, FaPenToSquare, FaUserTie } from 'react-icons/fa6';
 import { fetchCars } from '../services/api';
+import AppShell, { BackButton } from '../components/ui/AppShell';
+import { getMediaUrl } from '../utils/media';
 import '../styles/theme.css';
 
 function AdminCabView() {
@@ -21,25 +24,61 @@ function AdminCabView() {
   };
 
   return (
-    <div className="page-container">
-      <h2>All Cabs</h2>
+    <AppShell
+      title="Fleet manager"
+      subtitle="View all cab listings, check key details, and open any record to edit."
+      badge="Fleet Admin"
+      stats={[
+        { label: 'Total cabs', value: cabs.length, hint: 'Current fleet count' },
+        { label: 'Edit access', value: 'Enabled', hint: 'Open a cab to update' },
+        { label: 'Images', value: 'Supported', hint: 'Media loads from API base URL' },
+      ]}
+      actions={<BackButton to="/admin" label="Dashboard" />}
+    >
       {cabs.length === 0 ? (
-        <p>No Cabs Added</p>
+        <div className="empty-state">
+          <h3>No cabs added</h3>
+          <p>Your fleet inventory will appear here after the first cab is added.</p>
+        </div>
       ) : (
-        cabs.map((cab) => (
-          <div className="list-card" key={cab._id}>
-            {cab.carImage && <img src={`http://localhost:8000${cab.carImage}`} alt={cab.carname} style={{ width: '100%', height: 'auto' }} />}
-            <p>Driver: {cab.drivername}</p>
-            <p>Model: {cab.carname}</p>
-            <p>Type: {cab.cartype}</p>
-            <p>Price: ₹{cab.price}</p>
-            <p>Car No: {cab.carno}</p>
-            <button onClick={() => navigate(`/admin/editcab/${cab._id}`)}>Edit</button>
-          </div>
-        ))
+        <div className="catalog-grid">
+          {cabs.map((cab) => (
+            <article className="catalog-card" key={cab._id}>
+              <div className="catalog-card__media">
+                {cab.carImage ? (
+                  <img src={getMediaUrl(cab.carImage)} alt={cab.carname} className="catalog-card__image" />
+                ) : (
+                  <div className="catalog-card__placeholder">
+                    <FaCarRear />
+                    <span>{cab.carname}</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="catalog-card__body">
+                <div className="catalog-card__header">
+                  <h3>{cab.carname}</h3>
+                  <span className="price-pill">Rs {cab.price}/km</span>
+                </div>
+
+                <div className="detail-stack">
+                  <p><FaUserTie /> <span>{cab.drivername}</span></p>
+                  <p><FaCarRear /> <span>{cab.cartype}</span></p>
+                  <p><strong>Car No:</strong> <span>{cab.carno}</span></p>
+                </div>
+
+                <div className="form-actions">
+                  <button type="button" className="btn" onClick={() => navigate(`/admin/editcab/${cab._id}`)}>
+                    <FaPenToSquare />
+                    <span>Edit cab</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       )}
-      <button className="btn" onClick={() => navigate('/admin')}>⬅ Back</button>
-    </div>
+    </AppShell>
   );
 }
 
