@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCalendarDays, FaCarRear, FaLocationArrow, FaMoneyBillWave } from 'react-icons/fa6';
 import { useAuth } from '../context/AuthContext';
 import { fetchUserBookings, deleteBooking } from '../services/api';
+import AppShell, { BackButton } from '../components/ui/AppShell';
 import '../styles/theme.css';
 
 function MyBookings() {
@@ -10,7 +12,9 @@ function MyBookings() {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    if (user) loadBookings();
+    if (user) {
+      loadBookings();
+    }
   }, [user]);
 
   const loadBookings = async () => {
@@ -34,30 +38,58 @@ function MyBookings() {
   };
 
   return (
-    <div className="page-container">
-      <h2 className="page-title">My Bookings</h2>
+    <AppShell
+      title="My bookings"
+      subtitle="View confirmed rides, trip details, and cancellation actions from your booking history."
+      badge="Trips"
+      stats={[
+        { label: 'Bookings', value: bookings.length, hint: 'Loaded for this account' },
+        { label: 'Status', value: 'Live', hint: 'Updated from backend' },
+        { label: 'Actions', value: 'Cancel', hint: 'Cancel when needed' },
+      ]}
+      actions={<BackButton onClick={() => navigate(-1)} />}
+    >
       {bookings.length === 0 ? (
-        <p className="empty">No bookings yet</p>
+        <div className="empty-state">
+          <h3>No bookings yet</h3>
+          <p>Your trip history will appear here as soon as you confirm your first cab.</p>
+        </div>
       ) : (
-        bookings.map((b) => (
-          <div className="card booking-card" key={b._id}>
-            <p><b>Cab Booked Date:</b> {b.bookeddate}</p>
-            <p><b>Trip:</b> {b.selectedPickupCity} → {b.selectedDropCity}</p>
-            <p><b>Pickup Time:</b> {b.pickupdate} {b.pickuptime}</p>
-            <p><b>Drop Time:</b> {b.dropdate} {b.droptime}</p>
-            <p><b>Driver:</b> {b.drivername}</p>
-            <hr />
-            <p><b>Car:</b> {b.carname}</p>
-            <p><b>Car Type:</b> {b.cartype}</p>
-            <p><b>Car Number:</b> {b.carno}</p>
-            <p><b>Amount Paid:</b> ₹{b.fare}</p>
-            <p className="status"><b>Status:</b> {b.status || 'Confirmed'}</p>
-            <button className="btn cancel-btn" onClick={() => cancelBooking(b._id)}>Cancel Booking</button>
-            <button className="btn" onClick={() => navigate(-1)}>⬅ Back</button>
-          </div>
-        ))
+        <div className="booking-feed">
+          {bookings.map((b) => (
+            <article className="timeline-card" key={b._id}>
+              <div className="timeline-card__top">
+                <div>
+                  <span className="eyebrow">Confirmed Booking</span>
+                  <h3>{b.selectedPickupCity} to {b.selectedDropCity}</h3>
+                </div>
+                <span className="status-pill">{b.status || 'Confirmed'}</span>
+              </div>
+
+              <div className="detail-grid">
+                <p><FaCalendarDays /> <span>{b.bookeddate}</span></p>
+                <p><FaLocationArrow /> <span>{b.pickupdate} {b.pickuptime}</span></p>
+                <p><FaCarRear /> <span>{b.carname} ({b.cartype})</span></p>
+                <p><FaMoneyBillWave /> <span>Rs {b.fare}</span></p>
+              </div>
+
+              <div className="detail-stack detail-stack--tight">
+                <p><strong>Driver:</strong> <span>{b.drivername}</span></p>
+                <p><strong>Car Number:</strong> <span>{b.carno}</span></p>
+                <p><strong>Drop Schedule:</strong> <span>{b.dropdate} {b.droptime}</span></p>
+              </div>
+
+              <div className="form-actions">
+                <button type="button" className="btn btn-danger" onClick={() => cancelBooking(b._id)}>
+                  <span>Cancel booking</span>
+                </button>
+                <BackButton onClick={() => navigate(-1)} />
+              </div>
+            </article>
+          ))}
+        </div>
       )}
-    </div>
+    </AppShell>
   );
 }
 
