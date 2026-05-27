@@ -239,7 +239,7 @@ function BookCab() {
           </div>
         </article>
       </div>
-    </main>
+    </AppShell>
   );
 }
 
