@@ -68,7 +68,7 @@ function Cabs() {
                 </div>
 
                 <div className="form-actions">
-                  <button type="button" className="btn" onClick={() => navigate(`/bookcab/${cab._id}`)}>
+                  <button type="button" className="btn btn-primary" onClick={() => navigate(`/bookcab/${cab._id}`)}>
                     <span>Book cab</span>
                   </button>
                   <BackButton onClick={() => navigate(-1)} />

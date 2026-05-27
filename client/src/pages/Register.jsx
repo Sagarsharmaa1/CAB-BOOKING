@@ -9,6 +9,8 @@ import {
   FaUserPlus,
 } from 'react-icons/fa6';
 import { registerUser } from '../services/api';
+import AuroraBackground from '../components/ui/AuroraBackground';
+import AnimatedGrid from '../components/ui/AnimatedGrid';
 import '../styles/theme.css';
 
 function Register() {
@@ -29,121 +31,120 @@ function Register() {
   };
 
   return (
-    <main className="auth-page">
-      <div className="auth-page__mesh" aria-hidden="true" />
-      <div className="auth-page__glow auth-page__glow-left" aria-hidden="true" />
-      <div className="auth-page__glow auth-page__glow-right" aria-hidden="true" />
+    <main className="app-shell" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+      <AuroraBackground />
+      <AnimatedGrid />
 
-      <div className="auth-page__shell">
-        <section className="auth-showcase">
-          <div className="auth-mark">Cab Booking App</div>
-          <span className="eyebrow auth-showcase__eyebrow">Create Rider Account</span>
-          <h1>Start with a cleaner sign-up flow built for real booking journeys.</h1>
-          <p>
-            Create your account once, then move through cab discovery, booking, and ride
-            management with the same premium interface across the app.
-          </p>
+      <div className="container" style={{ maxWidth: '1000px' }}>
+        <div className="glass-card animate-reveal" style={{ 
+          display: 'grid', 
+          gridTemplateColumns: '1.2fr 1fr', 
+          borderRadius: 'var(--radius-xl)',
+          overflow: 'hidden',
+          padding: 0
+        }}>
+          {/* Left Side: Info */}
+          <div style={{ padding: '60px', background: 'rgba(255,255,255,0.02)', borderRight: '1px solid var(--border-subtle)' }}>
+            <span className="badge badge-gold" style={{ marginBottom: '24px' }}>Join Us</span>
+            <h1 style={{ fontSize: '3rem', marginBottom: '24px' }}>Create your <span className="serif-display">account</span></h1>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>
+              Join thousands of riders who book reliable city cabs every day with a single tap.
+            </p>
 
-          <div className="auth-showcase__rail">
-            <article>
-              <FaUserPlus />
-              <div>
-                <strong>Quick onboarding</strong>
-                <span>A tighter form layout keeps account creation straightforward and focused.</span>
+            <div style={{ display: 'grid', gap: '24px' }}>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                <div className="badge badge-blue" style={{ width: '40px', height: '40px', padding: 0, flexShrink: 0 }}>
+                  <FaUserPlus size={20} />
+                </div>
+                <div>
+                  <strong style={{ display: 'block', marginBottom: '4px' }}>Quick Onboarding</strong>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Simple registration flow to get you moving fast.</span>
+                </div>
               </div>
-            </article>
-            <article>
-              <FaShieldHalved />
-              <div>
-                <strong>Secure access</strong>
-                <span>Your registration flow stays connected to the existing backend and auth routes.</span>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                <div className="badge badge-gold" style={{ width: '40px', height: '40px', padding: 0, flexShrink: 0 }}>
+                  <FaShieldHalved size={20} />
+                </div>
+                <div>
+                  <strong style={{ display: 'block', marginBottom: '4px' }}>Secure Platform</strong>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Your data is protected with industry-standard security.</span>
+                </div>
               </div>
-            </article>
-            <article>
-              <FaArrowRight />
-              <div>
-                <strong>Ready to book</strong>
-                <span>Sign up once and move directly into fleet browsing and trip confirmation.</span>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section className="auth-card">
-          <div className="auth-card__header">
-            <span className="eyebrow">New Account</span>
-            <h2>Register</h2>
-            <p>Create your rider profile to book cabs and manage your bookings from one place.</p>
+            </div>
           </div>
 
-          <form id="register-form" onSubmit={handleSubmit} className="auth-form">
-            <label className="auth-field">
-              <span>Name</span>
-              <div className="auth-field__control">
-                <FaIdCard />
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  autoComplete="name"
-                  required
-                />
-              </div>
-            </label>
-
-            <label className="auth-field">
-              <span>Email</span>
-              <div className="auth-field__control">
-                <FaEnvelope />
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="username"
-                  required
-                />
-              </div>
-            </label>
-
-            <label className="auth-field">
-              <span>Password</span>
-              <div className="auth-field__control">
-                <FaLock />
-                <input
-                  type="password"
-                  placeholder="Create a password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
-                  required
-                />
-              </div>
-            </label>
-
-            <div className="auth-card__meta">
-              <span>Your registration flow uses the same backend contract as before.</span>
-              <button type="button" className="auth-back-link" onClick={() => navigate(-1)}>
-                Go back
-              </button>
+          {/* Right Side: Form */}
+          <div style={{ padding: '60px' }}>
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{ fontSize: '2rem', marginBottom: '8px' }}>Register</h2>
+              <p style={{ color: 'var(--text-secondary)' }}>Create your rider profile to continue.</p>
             </div>
 
-            <div className="auth-form__actions">
-              <button className="btn" type="submit">
-                <span>Signup</span>
+            <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '20px' }}>
+              <div className="form-group">
+                <label className="form-label">Full Name</label>
+                <div style={{ position: 'relative' }}>
+                  <FaIdCard style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                  <input
+                    type="text"
+                    className="form-input"
+                    style={{ paddingLeft: '48px' }}
+                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Email Address</label>
+                <div style={{ position: 'relative' }}>
+                  <FaEnvelope style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                  <input
+                    type="email"
+                    className="form-input"
+                    style={{ paddingLeft: '48px' }}
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Password</label>
+                <div style={{ position: 'relative' }}>
+                  <FaLock style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                  <input
+                    type="password"
+                    className="form-input"
+                    style={{ paddingLeft: '48px' }}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }}>
+                <span>Create Account</span>
                 <FaArrowRight />
               </button>
-              <button className="btn btn-secondary" type="button" onClick={() => navigate('/login')}>
-                Login instead
-              </button>
-            </div>
-          </form>
 
-          <p className="auth-card__footer">
-            Already have an account? <Link to="/login">Sign in here</Link>
-          </p>
-        </section>
+              <div style={{ textAlign: 'center', marginTop: '16px' }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                  Already have an account? <Link to="/login" style={{ color: 'var(--accent-gold)', fontWeight: 700, textDecoration: 'none' }}>Login</Link>
+                </p>
+                <Link to="/" style={{ display: 'block', marginTop: '16px', color: 'var(--text-muted)', fontSize: '0.9rem', textDecoration: 'none' }}>
+                  Back to home
+                </Link>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </main>
   );

@@ -10,53 +10,76 @@ function AppShell({
   stats = [],
   actions,
   children,
-  compact = false,
   showTopbar = true,
 }) {
   return (
-    <main className={`app-shell ${compact ? "app-shell-compact" : ""}`}>
+    <main className="app-shell">
       <AuroraBackground />
       <AnimatedGrid />
 
-      <div className="app-shell__content">
+      <div className="container app-shell__content">
         {showTopbar ? (
-          <header className="app-topbar">
-            <Link to="/" className="app-brand">
+          <header className="glass" style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '16px 24px',
+            borderRadius: 'var(--radius-md)',
+            marginBottom: '32px'
+          }}>
+            <Link to="/" className="app-brand" style={{
+              textDecoration: 'none',
+              fontSize: '1.1rem',
+              fontWeight: 800,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'var(--text-primary)'
+            }}>
               Cab Booking App
             </Link>
-            <div className="app-topbar__meta">{badge ? <span className="app-badge">{badge}</span> : null}</div>
+            <div className="app-topbar__meta">
+              {badge ? <span className="badge badge-gold">{badge}</span> : null}
+            </div>
           </header>
         ) : null}
 
-        <section className="hero-panel">
-          <div className="hero-panel__copy">
-            {badge ? <span className="eyebrow">{badge}</span> : null}
-            <h1 className="hero-title">{title}</h1>
-            {subtitle ? <p className="hero-subtitle">{subtitle}</p> : null}
+        <section className="glass-card animate-reveal" style={{
+          padding: '40px',
+          borderRadius: 'var(--radius-lg)',
+          marginBottom: '24px',
+          display: 'grid',
+          gridTemplateColumns: '1fr auto',
+          gap: '24px',
+          alignItems: 'center'
+        }}>
+          <div>
+            {badge ? <span className="badge badge-gold" style={{ marginBottom: '16px' }}>{badge}</span> : null}
+            <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '12px' }}>{title}</h1>
+            {subtitle ? <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px' }}>{subtitle}</p> : null}
           </div>
           {actions ? <div className="hero-panel__actions">{actions}</div> : null}
         </section>
 
         {stats.length > 0 ? (
-          <section className="stats-grid">
+          <section className="stats-grid animate-reveal stagger-1" style={{ marginBottom: '24px' }}>
             {stats.map((stat) => (
-              <article className="stat-card" key={stat.label}>
-                <span className="stat-card__label">{stat.label}</span>
-                <strong className="stat-card__value">{stat.value}</strong>
-                {stat.hint ? <p className="stat-card__hint">{stat.hint}</p> : null}
+              <article className="glass-card" key={stat.label} style={{ padding: '24px', borderRadius: 'var(--radius-md)' }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>{stat.label}</span>
+                <strong style={{ display: 'block', fontSize: '2rem', marginTop: '8px', color: 'var(--accent-gold)' }}>{stat.value}</strong>
+                {stat.hint ? <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '4px' }}>{stat.hint}</p> : null}
               </article>
             ))}
           </section>
         ) : null}
 
-        <section className="content-panel">{children}</section>
+        <section className="animate-reveal stagger-2">{children}</section>
       </div>
     </main>
   );
 }
 
 export function BackButton({ to, onClick, label = "Back", muted = true }) {
-  const className = muted ? "btn btn-secondary" : "btn";
+  const className = muted ? "btn btn-secondary" : "btn btn-primary";
 
   if (to) {
     return (
@@ -76,3 +99,4 @@ export function BackButton({ to, onClick, label = "Back", muted = true }) {
 }
 
 export default AppShell;
+

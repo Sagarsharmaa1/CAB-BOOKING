@@ -49,7 +49,7 @@ function Uhome() {
             <div className="feature-card__icon">{card.icon}</div>
             <h3>{card.title}</h3>
             <p>{card.description}</p>
-            <button type="button" className="btn" onClick={card.action}>
+            <button type="button" className="btn btn-primary" onClick={card.action}>
               <span>{card.cta}</span>
             </button>
           </article>
